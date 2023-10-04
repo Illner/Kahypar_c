@@ -2,7 +2,7 @@
 #include <memory>
 #include <vector>
 
-#include <libkahypar.h>
+#include "libkahypar.h"
 
 int main(int argc, char *argv[]) {
 
