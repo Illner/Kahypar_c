@@ -4,6 +4,7 @@ project(Kahypar)
 set (CMAKE_CXX_STANDARD 20)
 
 add_executable(Kahypar main.cpp)
+add_compile_options(-lkahypar)
 
 # macOS
 IF (${CMAKE_SYSTEM_NAME} STREQUAL "Darwin")
