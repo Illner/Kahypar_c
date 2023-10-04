@@ -29,7 +29,7 @@ extern "C" {
 #endif
 
 #ifndef KAHYPAR_API
-#  ifdef _WIN32
+#  if defined(WIN32) || defined(_WIN32) || defined(__WIN32__) || defined(__NT__) || defined(__CYGWIN__)
 #     if defined(KAHYPAR_BUILD_SHARED)  /* build dll */
 #         define KAHYPAR_API __declspec(dllexport)
 #     elif !defined(KAHYPAR_BUILD_STATIC)  /* use dll */
