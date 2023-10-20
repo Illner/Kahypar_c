@@ -11,7 +11,7 @@ IF (${CMAKE_SYSTEM_NAME} STREQUAL "Darwin")
     # Apple Silicon
     IF (${CMAKE_SYSTEM_PROCESSOR} STREQUAL "arm64")
         message("Operating system: macOS (Apple Silicon)")
-        message(FATAL_ERROR "KaHyPar is not supported!")
+        message(FATAL_ERROR "KaHyPar is not supported!") 
     # Intel
     ELSE ()
         message("Operating system: macOS (Intel)")
