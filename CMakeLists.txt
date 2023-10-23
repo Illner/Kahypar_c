@@ -3,7 +3,7 @@ project(Kahypar)
 
 set (CMAKE_CXX_STANDARD 20)
 
-add_executable(Kahypar main.cpp)
+
 # add_compile_options(-lkahypar)
 
 # macOS
@@ -39,3 +39,5 @@ ELSEIF (${CMAKE_SYSTEM_NAME} STREQUAL "Linux")
 ELSE()
     message(FATAL_ERROR "Your operating system (" ${CMAKE_SYSTEM_NAME} ") is not supported!")
 ENDIF()
+
+add_executable(Kahypar main.cpp)
