@@ -20,7 +20,7 @@ IF (${CMAKE_SYSTEM_NAME} STREQUAL "Darwin")
 # Windows
 ELSEIF ((${CMAKE_SYSTEM_NAME} STREQUAL "Windows") OR (CMAKE_SYSTEM_NAME STREQUAL "CYGWIN"))
     message("Operating system: Windows")
-    SET_PROPERTY(TARGET lmms
+    SET_PROPERTY(TARGET Kahypar
             APPEND_STRING PROPERTY LINK_FLAGS " -Wl,--out-implib,/Windows/libkahypar.dll.a"
     )
 
