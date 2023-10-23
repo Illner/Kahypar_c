@@ -4,13 +4,14 @@ project(Kahypar)
 set (CMAKE_CXX_STANDARD 20)
 
 IF ((${CMAKE_SYSTEM_NAME} STREQUAL "Windows") OR (CMAKE_SYSTEM_NAME STREQUAL "CYGWIN"))
-add_library(Libkahypar SHARED IMPORTED GLOBAL)
-set_target_properties(
-        Libkahypar
-        PROPERTIES
-        IMPORTED_LOCATION ${CMAKE_SOURCE_DIR}/Windows/cygkahypar.dll
-        IMPORTED_IMPLIB   ${CMAKE_SOURCE_DIR}/Windows/libkahypar.dll.a
-)
+    add_library(Libkahypar SHARED IMPORTED GLOBAL)
+    set_target_properties(
+            Libkahypar
+            PROPERTIES
+            IMPORTED_LOCATION ${CMAKE_SOURCE_DIR}/Windows/cygkahypar.dll
+            IMPORTED_IMPLIB   ${CMAKE_SOURCE_DIR}/Windows/libkahypar.dll.a
+    )
+ENDIF()
 
 add_executable(Kahypar main.cpp)
 # add_compile_options(-lkahypar)
