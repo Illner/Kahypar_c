@@ -24,7 +24,7 @@ ELSEIF ((${CMAKE_SYSTEM_NAME} STREQUAL "Windows") OR (CMAKE_SYSTEM_NAME STREQUAL
             APPEND_STRING PROPERTY LINK_FLAGS " -Wl,--out-implib,/Windows/libkahypar.dll.a"
     )
 
-    target_link_libraries(Kahypar PRIVATE ${CMAKE_SOURCE_DIR}/Windows/cygkahypar.dll)
+    target_link_libraries(Kahypar ${CMAKE_SOURCE_DIR}/Windows/cygkahypar.dll)
 
 # Linux
 ELSEIF (${CMAKE_SYSTEM_NAME} STREQUAL "Linux")
