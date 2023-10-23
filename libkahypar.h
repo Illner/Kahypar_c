@@ -21,6 +21,7 @@
 #ifndef LIBKAHYPAR_H
 #define LIBKAHYPAR_H
 
+#include <stdbool.h>
 #include <stddef.h>
 
 #ifdef __cplusplus
@@ -58,10 +59,11 @@ typedef int kahypar_partition_id_t;
 KAHYPAR_API kahypar_context_t *kahypar_context_new();
 KAHYPAR_API void kahypar_context_free(kahypar_context_t *kahypar_context);
 KAHYPAR_API void
-kahypar_configure_context_cut(kahypar_context_t *kahypar_context);
-KAHYPAR_API
-void kahypar_configure_context_from_file(kahypar_context_t *kahypar_context,
-                                         const char *ini_file_name);
+kahypar_configure_context_from_file(kahypar_context_t *kahypar_context,
+                                    const char *ini_file_name);
+
+KAHYPAR_API void kahypar_set_seed(kahypar_context_t *kahypar_context,
+                                  const int seed);
 
 KAHYPAR_API void kahypar_hypergraph_free(kahypar_hypergraph_t *hypergraph);
 
@@ -87,6 +89,13 @@ kahypar_create_hypergraph(const kahypar_partition_id_t num_blocks,
                           const kahypar_hyperedge_weight_t *hyperedge_weights,
                           const kahypar_hypernode_weight_t *vertex_weights);
 
+KAHYPAR_API bool kahypar_validate_input(
+    const kahypar_hypernode_id_t num_vertices,
+    const kahypar_hyperedge_id_t num_hyperedges,
+    const size_t *hyperedge_indices, const kahypar_hyperedge_id_t *hyperedges,
+    const kahypar_hyperedge_weight_t *hyperedge_weights,
+    const kahypar_hypernode_weight_t *vertex_weights, const bool print_errors);
+
 KAHYPAR_API void kahypar_partition_hypergraph(
     kahypar_hypergraph_t *kahypar_hypergraph,
     const kahypar_partition_id_t num_blocks, const double epsilon,
@@ -100,9 +109,6 @@ KAHYPAR_API void kahypar_improve_hypergraph_partition(
     const kahypar_partition_id_t *input_partition,
     const size_t num_improvement_iterations,
     kahypar_partition_id_t *improved_partition);
-
-KAHYPAR_API void
-kahypar_hypergraph_free(kahypar_hypergraph_t *kahypar_hypergraph);
 
 KAHYPAR_API void kahypar_read_hypergraph_from_file(
     const char *file_name, kahypar_hypernode_id_t *num_vertices,
