@@ -4,7 +4,7 @@ project(Kahypar)
 set (CMAKE_CXX_STANDARD 20)
 
 IF ((${CMAKE_SYSTEM_NAME} STREQUAL "Windows") OR (CMAKE_SYSTEM_NAME STREQUAL "CYGWIN"))
-    add_library(Libkahypar STATIC)
+    add_library(Libkahypar STATIC IMPORTED GLOBAL)
     set_target_properties(
             Libkahypar
             PROPERTIES
