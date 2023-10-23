@@ -24,8 +24,8 @@ ELSEIF ((${CMAKE_SYSTEM_NAME} STREQUAL "Windows") OR (CMAKE_SYSTEM_NAME STREQUAL
     set_target_properties(
             Library2
             PROPERTIES
-            IMPORTED_LOCATION ${CMAKE_SOURCE_DIR}/Windows/cygkahypar.dll
-            IMPORTED_IMPLIB   ${CMAKE_SOURCE_DIR}/Windows/libkahypar.dll.a
+            IMPORTED_LOCATION ${CMAKE_SOURCE_DIR}/Windows/libkahypar.dll.a
+            IMPORTED_IMPLIB   ${CMAKE_SOURCE_DIR}/Windows/cygkahypar.dll
     )
     target_link_libraries(Kahypar Library2)
     # target_link_libraries(Kahypar PRIVATE ${CMAKE_SOURCE_DIR}/Windows/libkahypar.dll.a)
