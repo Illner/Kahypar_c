@@ -20,7 +20,7 @@ IF (${CMAKE_SYSTEM_NAME} STREQUAL "Darwin")
 # Windows
 ELSEIF ((${CMAKE_SYSTEM_NAME} STREQUAL "Windows") OR (CMAKE_SYSTEM_NAME STREQUAL "CYGWIN"))
     message("Operating system: Windows")
-    add_library(Library2 SHARED IMPORTED)
+    add_library(Library2 SHARED IMPORTED GLOBAL)
     set_target_properties(
             Library2
             PROPERTIES
