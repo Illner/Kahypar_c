@@ -7,7 +7,7 @@
 int main(int argc, char *argv[]) {
 
   kahypar_context_t *context = kahypar_context_new();
-  // kahypar_configure_context_from_file(context, "/path/to/config.ini");
+  kahypar_configure_context_from_file(context, "config/cut_kKaHyPar_sea20.ini");
 
   // kahypar_set_seed(context, 42);
 

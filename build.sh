@@ -8,6 +8,7 @@ mkdir Release
 cd Release
 cmake -D CMAKE_BUILD_TYPE=Release -G "Unix Makefiles" ../..
 make
+cp -R ../../config config
 
 cd ..
 

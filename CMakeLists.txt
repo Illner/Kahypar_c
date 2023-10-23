@@ -10,8 +10,7 @@ add_compile_options(-lkahypar)
 IF (${CMAKE_SYSTEM_NAME} STREQUAL "Darwin")
     # Apple Silicon
     IF (${CMAKE_SYSTEM_PROCESSOR} STREQUAL "arm64")
-        message("Operating system: macOS (Apple Silicon)")
-        message(FATAL_ERROR "KaHyPar is not supported!")
+        target_link_libraries(Kahypar ${CMAKE_SOURCE_DIR}/macOS/AppleSilicon/libkahypar.dylib)
     # Intel
     ELSE ()
         message("Operating system: macOS (Intel)")
