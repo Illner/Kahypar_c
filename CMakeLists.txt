@@ -21,7 +21,7 @@ IF (${CMAKE_SYSTEM_NAME} STREQUAL "Darwin")
 ELSEIF ((${CMAKE_SYSTEM_NAME} STREQUAL "Windows") OR (CMAKE_SYSTEM_NAME STREQUAL "CYGWIN"))
     message("Operating system: Windows")
     target_link_libraries(Kahypar ${CMAKE_SOURCE_DIR}/Windows/cygkahypar.dll)
-    target_link_libraries(Kahypar ${CMAKE_SOURCE_DIR}/Windows/libkahypar.dll.a)
+    # target_link_libraries(Kahypar ${CMAKE_SOURCE_DIR}/Windows/libkahypar.dll.a)
 
 # Linux
 ELSEIF (${CMAKE_SYSTEM_NAME} STREQUAL "Linux")
