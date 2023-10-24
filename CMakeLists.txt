@@ -10,6 +10,7 @@ add_executable(Kahypar main.cpp)
 IF (${CMAKE_SYSTEM_NAME} STREQUAL "Darwin")
     # Apple Silicon
     IF (${CMAKE_SYSTEM_PROCESSOR} STREQUAL "arm64")
+        target_link_libraries(Kahypar ${CMAKE_SOURCE_DIR}/libmini_boost.a)
         target_link_libraries(Kahypar ${CMAKE_SOURCE_DIR}/macOS/AppleSilicon/libkahypar.a)
     # Intel
     ELSE ()
