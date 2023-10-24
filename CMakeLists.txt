@@ -10,8 +10,8 @@ add_executable(Kahypar main.cpp)
 IF (${CMAKE_SYSTEM_NAME} STREQUAL "Darwin")
     # Apple Silicon
     IF (${CMAKE_SYSTEM_PROCESSOR} STREQUAL "arm64")
-        target_link_libraries(Kahypar ${CMAKE_SOURCE_DIR}/libmini_boost.a)
         target_link_libraries(Kahypar ${CMAKE_SOURCE_DIR}/macOS/AppleSilicon/libkahypar.a)
+        target_link_libraries(Kahypar ${CMAKE_SOURCE_DIR}/macOS/AppleSilicon/libmini_boost.a)
     # Intel
     ELSE ()
         message("Operating system: macOS (Intel)")
@@ -27,7 +27,8 @@ ELSEIF ((${CMAKE_SYSTEM_NAME} STREQUAL "Windows") OR (CMAKE_SYSTEM_NAME STREQUAL
 # Linux
 ELSEIF (${CMAKE_SYSTEM_NAME} STREQUAL "Linux")
     message("Operating system: Linux")
-    target_link_libraries(Kahypar ${CMAKE_SOURCE_DIR}/Linux/libkahypar.so)
+    target_link_libraries(Kahypar ${CMAKE_SOURCE_DIR}/Linux/libkahypar.a)
+    target_link_libraries(Kahypar ${CMAKE_SOURCE_DIR}/Linux/libmini_boost.a)
 
 # Undefined
 ELSE()
