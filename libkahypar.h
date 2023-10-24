@@ -21,6 +21,8 @@
 #ifndef LIBKAHYPAR_H
 #define LIBKAHYPAR_H
 
+#include <string>
+
 #include <stdbool.h>
 #include <stddef.h>
 
@@ -58,9 +60,15 @@ typedef int kahypar_partition_id_t;
 
 KAHYPAR_API kahypar_context_t *kahypar_context_new();
 KAHYPAR_API void kahypar_context_free(kahypar_context_t *kahypar_context);
+
 KAHYPAR_API void
 kahypar_configure_context_from_file(kahypar_context_t *kahypar_context,
                                     const char *ini_file_name);
+
+// Added
+KAHYPAR_API void
+kahypar_configure_context_from_string(kahypar_context_t *kahypar_context,
+                                      const std::string &string);
 
 KAHYPAR_API void kahypar_set_seed(kahypar_context_t *kahypar_context,
                                   const int seed);
