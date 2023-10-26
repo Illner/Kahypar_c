@@ -14,7 +14,8 @@ IF (${CMAKE_SYSTEM_NAME} STREQUAL "Darwin")
     # Intel
     ELSE ()
         message("Operating system: macOS (Intel)")
-        message(FATAL_ERROR "KaHyPar is not supported!")
+        target_link_libraries(Kahypar ${CMAKE_SOURCE_DIR}/macOS/Intel/libkahypar.a)
+        target_link_libraries(Kahypar ${CMAKE_SOURCE_DIR}/macOS/Intel/libmini_boost.a)
     ENDIF ()
 
 # Windows
