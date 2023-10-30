@@ -8,6 +8,11 @@
 
 #include <stdio.h>
 #include <unistd.h>
+#include <cassert>
+#include <filesystem>
+#include <fstream>
+#include <ios>
+#include <string>
 
 int memReadStat(int field)
 {
@@ -23,10 +28,72 @@ int memReadStat(int field)
     if (fscanf(in, "%d", &value) != 1)
       printf("ERROR! Failed to parse memory statistics from \"/proc\".\n"), exit(1);
   fclose(in);
+
+  std::cout << "/proc/%d/statm (value): " << std::to_string(value) << std::endl;
+
   return value;
 }
 
 double memUsed() { return (double)memReadStat(0) * (double)getpagesize() / (1024*1024); }
+
+using MemorySizeType = long double;   // 128 bits
+
+const std::string VM_SIZE_START_OF_LINE = "VmSize:";
+const std::string VM_PEAK_START_OF_LINE = "VmPeak:";
+
+constexpr MemorySizeType NOT_SUPPORTED_VIRTUAL_MEMORY_SIZE_VALUE = static_cast<MemorySizeType>(-1);
+
+MemorySizeType readProcSelfStatusFile(const std::string& startLine) {
+  assert(startLine == VM_SIZE_START_OF_LINE || startLine == VM_PEAK_START_OF_LINE);   // valid start of the line
+
+  const std::string fileName = "/proc/self/status";
+  MemorySizeType memorySize = NOT_SUPPORTED_VIRTUAL_MEMORY_SIZE_VALUE;
+
+  // The file does not exist
+  if (!std::filesystem::exists(fileName))
+    return memorySize;
+
+  {
+    std::ifstream fileStream(fileName, std::ios::in);
+
+    // The file cannot be opened
+    if (!fileStream.is_open())
+      return memorySize;
+
+    std::string line;
+    while (std::getline(fileStream, line)) {
+      if (line.starts_with(startLine)) {
+        assert(line.ends_with("kB"));
+
+        const char* begin = line.data();
+        const char* end = line.data() + line.size();
+
+        while (begin != end) {
+          if (!Parser::isDigit(*begin))
+            ++begin;
+          else
+            break;
+        }
+
+        try {
+          memorySize = Parser::parsePositiveNumber<MemorySizeType>(begin, end, 0, false);
+          memorySize /= MemorySizeType(1024);
+        }
+        catch (const Exception::Parser::ParserException& e) {
+        }
+
+        break;
+      }
+    }
+  }
+
+  return memorySize;
+}
+
+MemorySizeType getCurrentVirtualMemorySize() {
+  return readProcSelfStatusFile(VM_SIZE_START_OF_LINE);
+}
+
 
 int main(int argc, char *argv[]) {
 
@@ -91,5 +158,6 @@ int main(int argc, char *argv[]) {
 
   kahypar_context_free(context);
 
-  std::cout << std::to_string(memUsed()) << std::endl;
+  std::cout << "Minisat: " << std::to_string(memUsed()) << " MB" << std::endl;
+  std::cout << "Bella: " << std::to_string(getCurrentVirtualMemorySize()) << " MB" << std::endl;
 }
