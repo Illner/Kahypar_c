@@ -15,7 +15,7 @@
 #include <string>
 
 int memReadStat(int field)
-{
+{ 
   char  name[256];
   pid_t pid = getpid();
   int   value;
