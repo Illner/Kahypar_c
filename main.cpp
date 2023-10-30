@@ -8,6 +8,12 @@
 
 #include <stdio.h>
 #include <unistd.h>
+#include <cassert>
+#include <filesystem>
+#include <fstream>
+#include <ios>
+#include <string>
+
 
 int memReadStat(int field)
 {
