@@ -21,8 +21,8 @@ int memReadStat(int field)
   pid_t pid = getpid();
   int   value;
 
-  sprintf(name, "/proc/%d/statm", pid);
-  FILE* in = fopen(name, "rb");
+  // sprintf(name, "/proc/%d/statm", pid);
+  FILE* in = fopen("/proc/self/statm", "rb");
   if (in == NULL) return 0;
 
   for (; field >= 0; field--)
@@ -30,7 +30,7 @@ int memReadStat(int field)
       printf("ERROR! Failed to parse memory statistics from \"/proc\".\n"), exit(1);
   fclose(in);
 
-  std::cout << "/proc/%d/statm (value): " << std::to_string(value) << std::endl;
+  std::cout << "/proc/self/statm (value): " << std::to_string(value) << std::endl;
 
   return value;
 }
