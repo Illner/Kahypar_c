@@ -6,6 +6,28 @@
 
 #include "config/cut_kKaHyPar_sea20.hpp"
 
+#include <stdio.h>
+#include <unistd.h>
+
+int memReadStat(int field)
+{
+  char  name[256];
+  pid_t pid = getpid();
+  int   value;
+
+  sprintf(name, "/proc/%d/statm", pid);
+  FILE* in = fopen(name, "rb");
+  if (in == NULL) return 0;
+
+  for (; field >= 0; field--)
+    if (fscanf(in, "%d", &value) != 1)
+      printf("ERROR! Failed to parse memory statistics from \"/proc\".\n"), exit(1);
+  fclose(in);
+  return value;
+}
+
+double memUsed() { return (double)memReadStat(0) * (double)getpagesize() / (1024*1024); }
+
 int main(int argc, char *argv[]) {
 
   kahypar_context_t *context = kahypar_context_new();
@@ -68,4 +90,6 @@ int main(int argc, char *argv[]) {
   }
 
   kahypar_context_free(context);
+
+  std::cout << std::to_string(memUsed()) << std::endl;
 }
