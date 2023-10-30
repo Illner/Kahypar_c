@@ -8,11 +8,6 @@
 
 #include <stdio.h>
 #include <unistd.h>
-#include <cassert>
-#include <filesystem>
-#include <fstream>
-#include <ios>
-#include <string>
 
 int memReadStat(int field)
 {
@@ -63,25 +58,7 @@ MemorySizeType readProcSelfStatusFile(const std::string& startLine) {
     std::string line;
     while (std::getline(fileStream, line)) {
       if (line.starts_with(startLine)) {
-        assert(line.ends_with("kB"));
-
-        const char* begin = line.data();
-        const char* end = line.data() + line.size();
-
-        while (begin != end) {
-          if (!Parser::isDigit(*begin))
-            ++begin;
-          else
-            break;
-        }
-
-        try {
-          memorySize = Parser::parsePositiveNumber<MemorySizeType>(begin, end, 0, false);
-          memorySize /= MemorySizeType(1024);
-        }
-        catch (const Exception::Parser::ParserException& e) {
-        }
-
+        std::cout << line << std::endl;
         break;
       }
     }
@@ -159,5 +136,6 @@ int main(int argc, char *argv[]) {
   kahypar_context_free(context);
 
   std::cout << "Minisat: " << std::to_string(memUsed()) << " MB" << std::endl;
-  std::cout << "Bella: " << std::to_string(getCurrentVirtualMemorySize()) << " MB" << std::endl;
+  std::cout << "Bella: ";
+  getCurrentVirtualMemorySize();
 }
