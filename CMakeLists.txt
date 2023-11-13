@@ -27,8 +27,8 @@ ELSEIF ((${CMAKE_SYSTEM_NAME} STREQUAL "Windows") OR (CMAKE_SYSTEM_NAME STREQUAL
 # Linux
 ELSEIF (${CMAKE_SYSTEM_NAME} STREQUAL "Linux")
     message("Operating system: Linux")
-    target_link_libraries(Kahypar ${CMAKE_SOURCE_DIR}/Linux/libkahypar.a)
     target_link_libraries(Kahypar ${CMAKE_SOURCE_DIR}/Linux/libmini_boost.a)
+    target_link_libraries(Kahypar ${CMAKE_SOURCE_DIR}/Linux/libkahypar.a)
 
 # Undefined
 ELSE ()
